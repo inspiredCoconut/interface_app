@@ -43,10 +43,14 @@ final GoRouter router = GoRouter(
           NoTransitionPage(child: MainLayout(child: UserAddView())),
     ),
     GoRoute(
-        path: RoutesApp.admin,
-        builder: (context, state) => MainLayout(child: AdminDashboardView()),
-        pageBuilder: (context, state) =>
-            NoTransitionPage(child: MainLayout(child: AdminDashboardView()))),
+      path: RoutesApp.admin,
+      builder: (context, state) => authService.isAdmin()
+          ? MainLayout(child: AdminDashboardView())
+          : LoginView(),
+      pageBuilder: (context, state) => authService.isAdmin()
+          ? NoTransitionPage(child: MainLayout(child: AdminDashboardView()))
+          : NoTransitionPage(child: LoginView()),
+    ),
   ],
 );
 
