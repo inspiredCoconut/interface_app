@@ -12,6 +12,7 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  // Use locator to get the presenter instance as alternative to implementing the presenter in the constructor
   final HomePresenter presenter = locator<HomePresenter>();
 
   late Future<List<User>> users;
