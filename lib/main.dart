@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'core/service_locator.dart';
+import 'core/locator_service.dart';
 import 'package:interface_app/app.dart';
 
 void main() {
