@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/constants/routes.dart';
-import '../../../core/auth_service.dart';
-import '../../../core/locator_service.dart';
+import '../../../core/service/auth_service.dart';
+import '../../../core/service/locator_service.dart';
 
 class Sidebar extends StatefulWidget {
   const Sidebar({super.key});

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../data/models/user_model.dart';
-import '../data/repositories/auth_repository.dart';
+import '../../data/models/user_model.dart';
+import '../../data/repositories/auth_repository.dart';
 
 // AuthService class to handle user authentication
 class AuthService extends ChangeNotifier {

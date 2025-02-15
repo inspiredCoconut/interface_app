@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../core/locator_service.dart';
+import '../../core/service/locator_service.dart';
 import '../../presenters/user_presenter.dart';
 import '../../data/models/user_model.dart';
 

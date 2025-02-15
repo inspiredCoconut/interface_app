@@ -1,4 +1,4 @@
-import '../core/auth_service.dart';
+import '../core/service/auth_service.dart';
 
 class AuthPresenter {
   final AuthService authService;

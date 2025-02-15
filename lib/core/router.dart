@@ -9,8 +9,8 @@ import '../views/users/user_list_view.dart';
 import '../views/admin/admin_dashboard_view.dart';
 import '../views/auth/login_view.dart';
 import 'constants/routes.dart';
-import 'auth_service.dart';
-import 'locator_service.dart';
+import 'service/auth_service.dart';
+import 'service/locator_service.dart';
 
 final AuthService authService = locator<AuthService>();
 

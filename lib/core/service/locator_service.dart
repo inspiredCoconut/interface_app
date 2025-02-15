@@ -1,8 +1,8 @@
 import 'package:get_it/get_it.dart';
-import '../data/repositories/user_repository.dart';
-import '../presenters/home_presenter.dart';
-import '../presenters/settings_presenter.dart';
-import '../presenters/user_presenter.dart';
+import '../../data/repositories/user_repository.dart';
+import '../../presenters/home_presenter.dart';
+import '../../presenters/settings_presenter.dart';
+import '../../presenters/user_presenter.dart';
 import 'auth_service.dart';
 
 // Create a locator instance

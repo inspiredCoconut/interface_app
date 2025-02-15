@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../presenters/home_presenter.dart';
 import '../../data/models/user_model.dart';
-import '../../core/locator_service.dart';
+import '../../core/service/locator_service.dart';
 import '../widgets/common/user_datatable.dart';
 
 class HomeView extends StatefulWidget {
