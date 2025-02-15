@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../views/home_view.dart';
-import '../views/settings_view.dart';
-import '../views/widgets/sidebar.dart';
+import '../views/widgets/layout/main_layout.dart';
+import '../views/home/home_view.dart';
+import '../views/settings/settings_view.dart';
 import '../views/users/user_add_view.dart';
 import '../views/users/user_list_view.dart';
 import '../views/admin/admin_dashboard_view.dart';
@@ -17,56 +17,38 @@ final AuthService authService = locator<AuthService>();
 final GoRouter router = GoRouter(
   initialLocation: RoutesApp.home,
   routes: [
-    GoRoute(path: RoutesApp.login, builder: (context, state) => LoginView()),
-    GoRoute(
-      path: RoutesApp.home,
-      builder: (context, state) => MainLayout(child: HomeView()),
-      pageBuilder: (context, state) =>
-          NoTransitionPage(child: MainLayout(child: HomeView())),
-    ),
-    GoRoute(
-      path: RoutesApp.settings,
-      builder: (context, state) => MainLayout(child: SettingsView()),
-      pageBuilder: (context, state) =>
-          NoTransitionPage(child: MainLayout(child: SettingsView())),
-    ),
-    GoRoute(
-      path: RoutesApp.userList,
-      builder: (context, state) => MainLayout(child: UserListView()),
-      pageBuilder: (context, state) =>
-          NoTransitionPage(child: MainLayout(child: UserListView())),
-    ),
-    GoRoute(
-      path: RoutesApp.userAdd,
-      builder: (context, state) => MainLayout(child: UserAddView()),
-      pageBuilder: (context, state) =>
-          NoTransitionPage(child: MainLayout(child: UserAddView())),
-    ),
-    GoRoute(
-      path: RoutesApp.admin,
-      builder: (context, state) => authService.isAdmin()
-          ? MainLayout(child: AdminDashboardView())
-          : LoginView(),
-      pageBuilder: (context, state) => authService.isAdmin()
-          ? NoTransitionPage(child: MainLayout(child: AdminDashboardView()))
-          : NoTransitionPage(child: LoginView()),
-    ),
+    _standardRoute(RoutesApp.login, LoginView()),
+    _protectedRouteNotrasition(RoutesApp.home, MainLayout(child: HomeView())),
+    _protectedRouteNotrasition(RoutesApp.settings, MainLayout(child: SettingsView())),
+    _protectedRouteNotrasition(RoutesApp.userList, MainLayout(child: UserListView())),
+    _protectedRouteNotrasition(RoutesApp.userAdd, MainLayout(child: UserAddView())),
+    _adminRouteNotrasition(RoutesApp.admin, MainLayout(child: AdminDashboardView())),
   ],
 );
 
-class MainLayout extends StatelessWidget {
-  final Widget child;
-  const MainLayout({super.key, required this.child});
+GoRoute _adminRouteNotrasition(String pathRoute, Widget widget) {
+  return GoRoute(
+    path: pathRoute,
+    builder: (context, state) => authService.isAdmin() ? widget : LoginView(),
+    pageBuilder: (context, state) => authService.isAdmin()
+        ? NoTransitionPage(child: widget)
+        : NoTransitionPage(child: LoginView()),
+  );
+}
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Row(
-        children: [
-          Sidebar(),
-          Expanded(child: child),
-        ],
-      ),
-    );
-  }
+GoRoute _standardRoute(String pathRoute, Widget widget) {
+  return GoRoute(
+    path: pathRoute,
+    builder: (context, state) => widget,
+  );
+}
+
+GoRoute _protectedRouteNotrasition(String pathRoute, Widget widget) {
+  return GoRoute(
+    path: pathRoute,
+    builder: (context, state) => authService.isAuthenticated() ? widget : LoginView(),
+    pageBuilder: (context, state) => authService.isAuthenticated()
+        ? NoTransitionPage(child: widget)
+        : NoTransitionPage(child: LoginView()),
+  );
 }

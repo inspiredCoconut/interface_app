@@ -1,14 +1,15 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+
 import '../models/user_model.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import '../../core/constants/endpoints.dart';
 
 class UserRepository {
-  final String apiUrl = 'https://jsonplaceholder.typicode.com/users';
 
   Future<List<User>> fetchUsers() async {
     final response = await http
-        .get(Uri.parse(apiUrl), headers: {'Accept': 'application/json'});
+        .get(Uri.parse(Endpoints.usersUrl), headers: {'Accept': 'application/json'});
 
     if (response.statusCode == 200) {
       List jsonData = json.decode(response.body);
@@ -32,7 +33,7 @@ class UserRepository {
 
   Future<User> createUser(String name, String email) async {
     final response = await http.post(
-      Uri.parse(apiUrl),
+      Uri.parse(Endpoints.createUserUrl),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({'name': name, 'email': email}),
     );
@@ -46,7 +47,7 @@ class UserRepository {
 
   Future<User> updateUser(int id, String name, String email) async {
     final response = await http.put(
-      Uri.parse('$apiUrl/$id'),
+      Uri.parse(Endpoints.updateUserUrl.replaceFirst('{id}', id.toString())),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({'name': name, 'email': email}),
     );
@@ -59,7 +60,7 @@ class UserRepository {
   }
 
   Future<void> deleteUser(int id) async {
-    final response = await http.delete(Uri.parse('$apiUrl/$id'));
+    final response = await http.delete(Uri.parse(Endpoints.deleteUserUrl.replaceFirst('{id}', id.toString())));
 
     if (response.statusCode != 200) {
       throw Exception("Failed to delete user");
