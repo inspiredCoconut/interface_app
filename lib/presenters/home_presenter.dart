@@ -1,12 +1,13 @@
-import '../data/repositories/user_repository.dart';
+import '../core/service/auth_service.dart';
 import '../data/models/user_model.dart';
 
 class HomePresenter {
-  final UserRepository userRepository;
+  final AuthService authService;
+  HomePresenter(this.authService);
 
-  HomePresenter(this.userRepository);
+  User getUser() {
+    User user = authService.currentUser!;
 
-  Future<List<User>> getUsers() async {
-    return await userRepository.loadJsonUsers();
+    return user;
   }
 }

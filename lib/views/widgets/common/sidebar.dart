@@ -38,6 +38,10 @@ class _SidebarState extends State<Sidebar> {
             case 3:
               context.go(RoutesApp.admin);
               break;
+            case 4:
+              authService.logout();
+              context.go(RoutesApp.login);
+              break;
           }
         },
         labelType: NavigationRailLabelType.all,
@@ -55,18 +59,18 @@ class _SidebarState extends State<Sidebar> {
             label: Text('Home'),
           ),
           NavigationRailDestination(
-              icon: Icon(Icons.supervised_user_circle), 
-              label: Text("Users")
-          ),
+              icon: Icon(Icons.supervised_user_circle), label: Text("Users")),
           NavigationRailDestination(
             icon: Icon(Icons.settings),
             label: Text('Settings'),
           ),
-          if(authService.isAdmin())
+          if (authService.isAdmin())
             NavigationRailDestination(
               icon: Icon(Icons.admin_panel_settings),
               label: Text('Admin'),
             ),
+          NavigationRailDestination(
+              icon: Icon(Icons.logout), label: Text("Logout"))
         ],
       ),
     );

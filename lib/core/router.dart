@@ -29,10 +29,9 @@ final GoRouter router = GoRouter(
 GoRoute _adminRouteNotrasition(String pathRoute, Widget widget) {
   return GoRoute(
     path: pathRoute,
-    builder: (context, state) => authService.isAdmin() ? widget : LoginView(),
-    pageBuilder: (context, state) => authService.isAdmin()
-        ? NoTransitionPage(child: widget)
-        : NoTransitionPage(child: LoginView()),
+    builder: (context, state) => widget,
+    pageBuilder: (context, state) => NoTransitionPage(child: widget),
+    redirect: (_, __) => authService.isAdmin() ? null : RoutesApp.home,
   );
 }
 
@@ -46,9 +45,8 @@ GoRoute _standardRoute(String pathRoute, Widget widget) {
 GoRoute _protectedRouteNotrasition(String pathRoute, Widget widget) {
   return GoRoute(
     path: pathRoute,
-    builder: (context, state) => authService.isAuthenticated() ? widget : LoginView(),
-    pageBuilder: (context, state) => authService.isAuthenticated()
-        ? NoTransitionPage(child: widget)
-        : NoTransitionPage(child: LoginView()),
+    builder: (context, state) =>  widget,
+    pageBuilder: (context, state) =>NoTransitionPage(child: widget),
+    redirect: (_, __) => authService.isAuthenticated() ? null : RoutesApp.login,
   );
 }

@@ -8,6 +8,7 @@ class Endpoints {
   static const String createSessionUrl = '$baseUrl/authentication/session/new';
   static const String sessionUrl = '$baseUrl/authentication/session/new';
   static const String accountUrl = '$baseUrl/account';
+  static const String updateProfileUrl = '$baseUrl/account';
   static const String logoutUrl = '$baseUrl/authentication/session';
 
 

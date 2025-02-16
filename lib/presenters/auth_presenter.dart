@@ -5,7 +5,12 @@ class AuthPresenter {
 
   AuthPresenter(this.authService);
 
-  Future<bool> login(String email, String password) => authService.login(email, password);
+  // Real login
+  // Future<bool> login(String email, String password) => authService.login(email, password);
+  // Fake login
+  Future<bool> login(String email, String password) => authService.fakeLogin(email, password);
+
+  bool isAuthenticated() => authService.isAuthenticated();
   
   void logout() => authService.logout();
 }
